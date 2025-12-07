@@ -1,0 +1,4 @@
+/home/phamgiatuan/project_02_source/build/CMakeFiles/server.dir
+/home/phamgiatuan/project_02_source/build/CMakeFiles/client.dir
+/home/phamgiatuan/project_02_source/build/CMakeFiles/edit_cache.dir
+/home/phamgiatuan/project_02_source/build/CMakeFiles/rebuild_cache.dir

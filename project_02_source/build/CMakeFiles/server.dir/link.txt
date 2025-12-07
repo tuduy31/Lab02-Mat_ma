@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/server.dir/server.cpp.o CMakeFiles/server.dir/database.cpp.o CMakeFiles/server.dir/crypto_utils.cpp.o -o server  /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib/x86_64-linux-gnu/libcrypto.so /usr/lib/x86_64-linux-gnu/libsqlite3.so -lpthread 
