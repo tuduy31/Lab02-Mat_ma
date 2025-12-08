@@ -1,24 +1,26 @@
 #include "database.h"
 #include <iostream>
 #include <stdexcept>
-
-Database::Database(const std::string& db_path) {
+using namespace std;
+Database::Database(const string& db_path) {
+    // Mở database file (tạo mới nếu chưa có)
     if (sqlite3_open(db_path.c_str(), &db) != SQLITE_OK) {
-        throw std::runtime_error("Cannot open database");
+        throw runtime_error("Cannot open database");
     }
+    // Tạo bảng nếu chưa tồn tại
     initTables();
 }
 
 Database::~Database() {
     if (db) {
-        sqlite3_close(db);
+        sqlite3_close(db); // Đóng connection
     }
 }
 
-void Database::checkError(int rc, const std::string& msg) {
+void Database::checkError(int rc, const string& msg) {
     if (rc != SQLITE_OK) {
-        std::string error = sqlite3_errmsg(db);
-        throw std::runtime_error(msg + ": " + error);
+        string error = sqlite3_errmsg(db);
+        throw runtime_error(msg + ": " + error);
     }
 }
 
@@ -30,8 +32,7 @@ void Database::initTables() {
             password_hash TEXT NOT NULL,
             salt TEXT NOT NULL,
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-        );
-        
+        );     
         CREATE TABLE IF NOT EXISTS notes (
             note_id INTEGER PRIMARY KEY AUTOINCREMENT,
             user_id INTEGER NOT NULL,
@@ -55,82 +56,102 @@ void Database::initTables() {
             FOREIGN KEY(note_id) REFERENCES notes(note_id)
         );
     )";
-    
+    // Bảng User
+/*user_id | username | password_hash           | salt      | created_at
+--------|----------|------------------------|-----------|-------------------
+1       | giatuan   | EF92b3... (base64)     | Ab3d2... | 2024-12-05 10:30:00
+2       | duy tu    | 3D8fa1... (base64)     | 8Bc4e... | 2024-12-05 11:15:00 */
+    // Bảng notes
+/*note_id | user_id | encrypted_data | iv      | tag     | filename    | created_at
+--------|---------|----------------|---------|---------|-------------|-------------------
+1       | 1       | aGVsbG8=       | MTIz... | YWJj... | secret.txt  | 2024-12-05 10:35:00
+2       | 1       | d29ybGQ=       | NDU2... | ZGVm... | data.csv    | 2024-12-05 10:40:00
+3       | 2       | Zm9vYmFy       | Nzg5... | Z2hp... | report.pdf  | 2024-12-05 11:20:00 */
+    //Bảng share_links
+/*link_id | note_id | url_token | encrypted_key | expire_at           | max_access | current_access
+--------|---------|-----------|---------------|---------------------|------------|---------------
+1       | 1       | abc123xyz | qP5LY6...     | 2024-12-05 11:35:00 | 5          | 2
+2       | 2       | def456uvw | 3kDrich...    | 2024-12-06 10:00:00 | -1         | 10 */    
     char* err_msg = nullptr;
-    int rc = sqlite3_exec(db, sql, nullptr, nullptr, &err_msg);
+    int rc = sqlite3_exec(db, sql, nullptr, nullptr, &err_msg); // Thực thi SQL command
     if (rc != SQLITE_OK) {
-        std::string error = err_msg;
-        sqlite3_free(err_msg);
-        throw std::runtime_error("SQL error: " + error);
+        string error = err_msg; // Nếu có lỗi, SQLite sẽ ghi message vào đây
+        sqlite3_free(err_msg); // Giải phóng memory của error message
+        throw runtime_error("SQL error: " + error);
     }
     
-    std::cout << "✓ Database tables initialized\n";
+    cout << "✓ Database tables initialized\n";
 }
 
-bool Database::createUser(const std::string& username, 
-                         const std::string& password_hash,
-                         const std::string& salt) {
-    const char* sql = "INSERT INTO users (username, password_hash, salt) VALUES (?, ?, ?)";
-    sqlite3_stmt* stmt;
-    
+bool Database::createUser(const string& username, 
+                         const string& password_hash,
+                         const string& salt) {
+    // 1. Chuẩn bị SQL Statement
+    const char* sql = "INSERT INTO users (username, password_hash, salt) VALUES (?, ?, ?)"; // Placeholder cho giá trị (prepared statement)
+    sqlite3_stmt* stmt; // Statement handle
+    // 2. Prepare statement
     if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
         return false;
     }
-    
+    // 3. Bind Paremeters (Điền giá trị vào ?)
     sqlite3_bind_text(stmt, 1, username.c_str(), -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(stmt, 2, password_hash.c_str(), -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(stmt, 3, salt.c_str(), -1, SQLITE_TRANSIENT);
-    
+    // 4. Excute Statement
     int rc = sqlite3_step(stmt);
+    // 5. Cleanup
     sqlite3_finalize(stmt);
-    
+    // 6. Check result
     return rc == SQLITE_DONE;
 }
 
-std::optional<std::pair<std::string, std::string>> Database::getUser(const std::string& username) {
+optional<pair<string, string>> Database::getUser(const string& username) { // Lấy thông tin user
     const char* sql = "SELECT password_hash, salt FROM users WHERE username = ?";
     sqlite3_stmt* stmt;
     
     if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
-        return std::nullopt;
+        return nullopt;
     }
     
     sqlite3_bind_text(stmt, 1, username.c_str(), -1, SQLITE_TRANSIENT);
     
     if (sqlite3_step(stmt) == SQLITE_ROW) {
-        std::string hash = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0));
-        std::string salt = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1));
+        // Có dữ liệu - Lấy columns
+        // SQLITE_ROW: Có dữ liệu -> Đọc columns
+        // SQLITE_DONE: Không có dữ liệu -> User không tồn tại
+        string hash = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0));
+        string salt = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1));
         sqlite3_finalize(stmt);
-        return std::make_pair(hash, salt);
+        return make_pair(hash, salt);
     }
     
     sqlite3_finalize(stmt);
-    return std::nullopt;
+    return nullopt;
 }
 
-int Database::getUserId(const std::string& username) {
+int Database::getUserId(const string& username) { // Lấy thông tin user_id
     const char* sql = "SELECT user_id FROM users WHERE username = ?";
     sqlite3_stmt* stmt;
     
     if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
-        return -1;
+        return -1; 
     }
     
     sqlite3_bind_text(stmt, 1, username.c_str(), -1, SQLITE_TRANSIENT);
     
     int user_id = -1;
     if (sqlite3_step(stmt) == SQLITE_ROW) {
-        user_id = sqlite3_column_int(stmt, 0);
+        user_id = sqlite3_column_int(stmt, 0); // Lấy giá trị integer từ column
     }
     
     sqlite3_finalize(stmt);
     return user_id;
 }
 
-int Database::createNote(int user_id, const std::string& encrypted_data,
-                        const std::string& iv, const std::string& tag,
-                        const std::string& filename) {
-    const char* sql = "INSERT INTO notes (user_id, encrypted_data, iv, tag, filename) VALUES (?, ?, ?, ?, ?)";
+int Database::createNote(int user_id, const string& encrypted_data,
+                        const string& iv, const string& tag,
+                        const string& filename) { // Lưu note đã mã hoá thành công
+    const char* sql = "INSERT INTO notes (user_id, encrypted_data, iv, tag, filename) VALUES (?, ?, ?, ?, ?)"; // Insert vào bảng note
     sqlite3_stmt* stmt;
     
     if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
@@ -147,46 +168,50 @@ int Database::createNote(int user_id, const std::string& encrypted_data,
     sqlite3_finalize(stmt);
     
     if (rc == SQLITE_DONE) {
-        return sqlite3_last_insert_rowid(db);
+        return sqlite3_last_insert_rowid(db); // Lấy id vừa tạo
     }
     return -1;
 }
 
-std::optional<NoteData> Database::getNote(int note_id) {
+optional<NoteData> Database::getNote(int note_id) { // Lấy note theo ID
     const char* sql = "SELECT note_id, encrypted_data, iv, tag, filename FROM notes WHERE note_id = ?";
     sqlite3_stmt* stmt;
     
     if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
-        return std::nullopt;
+        return nullopt;
     }
     
     sqlite3_bind_int(stmt, 1, note_id);
     
     if (sqlite3_step(stmt) == SQLITE_ROW) {
         NoteData note;
-        note.note_id = sqlite3_column_int(stmt, 0);
-        note.encrypted_data = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1));
+        note.note_id = sqlite3_column_int(stmt, 0); // Lấy column 0 (note_id) dưới dạng integer
+        note.encrypted_data = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1));// Trả từ const unsigned char* cast sang const char*, tạo string từ đó
         note.iv = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 2));
         note.tag = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 3));
         note.filename = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 4));
         sqlite3_finalize(stmt);
         return note;
     }
-    
+    /*
+    SELECT note_id, encrypted_data, iv, tag, filename
+       0        1                2   3    4  ← Column indices
+    */
     sqlite3_finalize(stmt);
-    return std::nullopt;
+    return nullopt;
 }
 
-std::vector<NoteData> Database::listNotes(int user_id) {
-    std::vector<NoteData> notes;
+vector<NoteData> Database::listNotes(int user_id) { // List của tất cả notes của user
+    vector<NoteData> notes;
     const char* sql = "SELECT note_id, encrypted_data, iv, tag, filename FROM notes WHERE user_id = ?";
     sqlite3_stmt* stmt;
     
     if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
-        return notes;
+        return notes; // Trả về vector rỗng nếu lỗi
     }
     
     sqlite3_bind_int(stmt, 1, user_id);
+    
     
     while (sqlite3_step(stmt) == SQLITE_ROW) {
         NoteData note;
@@ -202,8 +227,8 @@ std::vector<NoteData> Database::listNotes(int user_id) {
     return notes;
 }
 
-bool Database::deleteNote(int note_id, int user_id) {
-    const char* sql = "DELETE FROM notes WHERE note_id = ? AND user_id = ?";
+bool Database::deleteNote(int note_id, int user_id) { // Xoá Note
+    const char* sql = "DELETE FROM notes WHERE note_id = ? AND user_id = ?"; // Cần note_id và user_id để xoá
     sqlite3_stmt* stmt;
     
     if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
@@ -219,8 +244,8 @@ bool Database::deleteNote(int note_id, int user_id) {
     return rc == SQLITE_DONE;
 }
 
-bool Database::createShareLink(int note_id, const std::string& url_token,
-                               const std::string& encrypted_key,
+bool Database::createShareLink(int note_id, const string& url_token,
+                               const string& encrypted_key,
                                int expire_minutes, int max_access) {
     const char* sql = "INSERT INTO share_links (note_id, url_token, encrypted_key, expire_at, max_access) "
                      "VALUES (?, ?, ?, datetime('now', '+' || ? || ' minutes'), ?)";
@@ -230,9 +255,9 @@ bool Database::createShareLink(int note_id, const std::string& url_token,
         return false;
     }
     
-    sqlite3_bind_int(stmt, 1, note_id);
-    sqlite3_bind_text(stmt, 2, url_token.c_str(), -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(stmt, 3, encrypted_key.c_str(), -1, SQLITE_TRANSIENT);
+    sqlite3_bind_int(stmt, 1, note_id); // Note_id muốn share
+    sqlite3_bind_text(stmt, 2, url_token.c_str(), -1, SQLITE_TRANSIENT); // Server tạo random token
+    sqlite3_bind_text(stmt, 3, encrypted_key.c_str(), -1, SQLITE_TRANSIENT); // Server mã hoá AES key
     sqlite3_bind_int(stmt, 4, expire_minutes);
     sqlite3_bind_int(stmt, 5, max_access);
     
@@ -242,14 +267,14 @@ bool Database::createShareLink(int note_id, const std::string& url_token,
     return rc == SQLITE_DONE;
 }
 
-std::optional<ShareLinkData> Database::getShareLink(const std::string& url_token) {
+optional<ShareLinkData> Database::getShareLink(const string& url_token) { // Lấy thông tin share link
     const char* sql = "SELECT link_id, note_id, url_token, encrypted_key, "
                      "(expire_at < datetime('now')) as expired, max_access, current_access "
                      "FROM share_links WHERE url_token = ?";
     sqlite3_stmt* stmt;
-    
+    // Kiểm tra xem còn hạn hay không
     if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
-        return std::nullopt;
+        return nullopt;
     }
     
     sqlite3_bind_text(stmt, 1, url_token.c_str(), -1, SQLITE_TRANSIENT);
@@ -266,13 +291,17 @@ std::optional<ShareLinkData> Database::getShareLink(const std::string& url_token
         sqlite3_finalize(stmt);
         return link;
     }
-    
+    /*
+    SELECT link_id, note_id, url_token, encrypted_key, (expire_at < datetime('now')) as expired, max_access, current_access
+       ↑        ↑        ↑           ↑              ↑                                          ↑           ↑
+       0        1        2           3              4                                          5           6
+    */
     sqlite3_finalize(stmt);
-    return std::nullopt;
+    return nullopt;
 }
 
-void Database::incrementAccessCount(const std::string& url_token) {
-    const char* sql = "UPDATE share_links SET current_access = current_access + 1 WHERE url_token = ?";
+void Database::incrementAccessCount(const string& url_token) {
+    const char* sql = "UPDATE share_links SET current_access = current_access + 1 WHERE url_token = ?"; // Tăng số lần truy cập lên 1
     sqlite3_stmt* stmt;
     
     if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) == SQLITE_OK) {
