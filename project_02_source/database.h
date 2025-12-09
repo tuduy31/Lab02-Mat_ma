@@ -41,7 +41,7 @@ public:
     optional<NoteData> getNote(int note_id); // Lấy note theo ID
     vector<NoteData> listNotes(int user_id); // Lấy tất cả notes của 1 user
     bool deleteNote(int note_id, int user_id); // Xoá note
-    
+    int getNoteOwner(int note_id); // Check owner của note
     bool createShareLink(int note_id, const string& url_token,
                         const string& encrypted_key,
                         int expire_minutes, int max_access); // Tạo share link với thời gian expire
