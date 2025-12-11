@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/phamgiatuan/project_02_source/include
+CXX_INCLUDES = -I/home/phamgiatuan/Lab02-Mat_ma/project_02_source/include
 
 CXX_FLAGS = -std=gnu++17 -Wno-deprecated-declarations
 

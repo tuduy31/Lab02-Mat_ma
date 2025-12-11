@@ -1,0 +1,10 @@
+1.3 Ngôn ngữ lập trình và thư viện
+Trong bài tập này, sinh viên chỉ được phép dùng các ngôn ngữ lập trình C++, Rust, hoặc Go. Với các thư viện, các
+bạn được phép sử dụng lại các thư viện mã hóa chuẩn và phổ biến thay vì tự viết các sơ đồ mã hóa từ đầu. Điều
+này giúp đảm bảo ứng dụng được làm ra có tính an toàn cao, có thể sử dụng trong thực tiễn. Đồng thời, việc sử dụng các
+thư viện được công nhận rộng rãi giúp giảm thiểu rủi ro bảo mật, dễ bảo trì, đảm bảo an toàn dữ liệu và tuân thủ các
+tiêu chuẩn bảo mật mới nhất.
+Tuy nhiên, các thư viện được sử dụng phải được liệt kê trong báo cáo, cũng như cần được kiểm tra kỹ về việc thư
+viện đó có đạt chuẩn hay không, có được khuyến khích sử dụng trong các ứng dụng thực tế không. Ngoài ra, sinh viên
+cần nắm rõ cách sử dụng thư viện, tránh trường hợp dùng sai, hoặc cấu hình sai dẫn đến không đảm bảo tính an toàn và
+bảo mật của ứng dụng.

@@ -45,11 +45,10 @@ bool validateToken(const string& token, int& user_id) { // Kiểm tra token hợ
     return true;
 }
 
-string extractToken(const httplib::Request& req) { // Lấy Token từ HTTP header
-    // 1. Lấy Header "Authorization"
+string extractToken(const httplib::Request& req) {
     string auth_header = req.get_header_value("Authorization");
-    // 2. KIỂM TRA FORMAT "Bearer <token>"
-    if (auth_header.substr(0, 7) == "Bearer ") {
+    // ✅ Kiểm tra độ dài TRƯỚC khi dùng substr
+    if (auth_header.length() >= 7 && auth_header.substr(0, 7) == "Bearer ") {
         return auth_header.substr(7);
     }
     return "";
@@ -317,50 +316,56 @@ int main() {
         
         // GET /share/:token
         svr.Get(R"(/share/(.+))", [&](const httplib::Request& req, httplib::Response& res) {
-            try {
-                // 1. EXTRACT TOKEN TỪ URL
-                string token = req.matches[1];
-                // 2. LẤY SHARE LINK INFO TỪ DATABASE
-                auto share_data = db.getShareLink(token);
-                if (!share_data) {
-                    res.status = 404;
-                    res.set_content("Share link not found", "text/plain");
-                    return;
-                }
-                // 3. KIỂM TRA HẾT HẠN
-                if (share_data->is_expired) {
-                    res.status = 410;
-                    res.set_content("Share link has expired", "text/plain");
-                    return;
-                }
-                // 4. KIỂM TRA SỐ LẦN TRUY CẬP
-                if (share_data->max_access > 0 && share_data->current_access >= share_data->max_access) {
-                    res.status = 410;
-                    res.set_content("Share link has reached maximum access count", "text/plain");
-                    return;
-                }
-                // 5. TĂNG ACCESS COUNT
-                db.incrementAccessCount(token);
-                 // 6. LẤY NOTE DATA
-                auto note = db.getNote(share_data->note_id);
-                if (note) {
-                    // 7. TẠO RESPONSE VỚI NOTE + ENCRYPTED KEY
-                    json response = {
-                        {"encrypted_data", note->encrypted_data},
-                        {"iv", note->iv},
-                        {"tag", note->tag},
-                        {"encrypted_key", share_data->encrypted_key},
-                        {"filename", note->filename}
-                    };
-                    res.set_content(response.dump(), "application/json");
-                    cout << "[SHARE] Accessed note via token\n";
-                }
-            } catch (const exception& e) {
-                res.status = 500;
-                json response = {{"error", e.what()}};
+        try {
+            string token = req.matches[1];
+            auto share_data = db.getShareLink(token);
+            
+            if (!share_data) {
+                res.status = 404;
+                json response = {{"error", "Share link not found"}};  // ✅ JSON response
                 res.set_content(response.dump(), "application/json");
+                return;
             }
-        });
+            
+            // 3. KIỂM TRA HẾT HẠN
+            if (share_data->is_expired) {
+                res.status = 410;
+                json response = {{"error", "Share link has expired"}};  // ✅ JSON response
+                res.set_content(response.dump(), "application/json");
+                return;
+            }
+            
+            // 4. KIỂM TRA SỐ LẦN TRUY CẬP
+            if (share_data->max_access > 0 && share_data->current_access >= share_data->max_access) {
+                res.status = 410;
+                json response = {{"error", "Share link has reached maximum access count"}};  // ✅ JSON
+                res.set_content(response.dump(), "application/json");
+                return;
+            }
+            
+            // 5. TĂNG ACCESS COUNT
+            db.incrementAccessCount(token);
+            
+            // 6. LẤY NOTE DATA
+            auto note = db.getNote(share_data->note_id);
+            if (note) {
+                // 7. TẠO RESPONSE VỚI NOTE + ENCRYPTED KEY
+                json response = {
+                    {"encrypted_data", note->encrypted_data},
+                    {"iv", note->iv},
+                    {"tag", note->tag},
+                    {"encrypted_key", share_data->encrypted_key},
+                    {"filename", note->filename}
+                };
+                res.set_content(response.dump(), "application/json");
+                cout << "[SHARE] Accessed note via token\n";
+            }
+        } catch (const exception& e) {
+            res.status = 500;
+            json response = {{"error", e.what()}};
+            res.set_content(response.dump(), "application/json");
+        }
+    });
         
         svr.Get("/", [](const httplib::Request&, httplib::Response& res) {
             res.set_content("Secure Note Sharing Server is running", "text/plain");

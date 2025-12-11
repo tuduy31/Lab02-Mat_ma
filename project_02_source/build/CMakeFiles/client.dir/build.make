@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/phamgiatuan/project_02_source
+CMAKE_SOURCE_DIR = /home/phamgiatuan/Lab02-Mat_ma/project_02_source
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/phamgiatuan/project_02_source/build
+CMAKE_BINARY_DIR = /home/phamgiatuan/Lab02-Mat_ma/project_02_source/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/client.dir/depend.make
@@ -70,32 +70,32 @@ include CMakeFiles/client.dir/progress.make
 include CMakeFiles/client.dir/flags.make
 
 CMakeFiles/client.dir/client.cpp.o: CMakeFiles/client.dir/flags.make
-CMakeFiles/client.dir/client.cpp.o: /home/phamgiatuan/project_02_source/client.cpp
+CMakeFiles/client.dir/client.cpp.o: /home/phamgiatuan/Lab02-Mat_ma/project_02_source/client.cpp
 CMakeFiles/client.dir/client.cpp.o: CMakeFiles/client.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/phamgiatuan/project_02_source/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/client.dir/client.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/client.dir/client.cpp.o -MF CMakeFiles/client.dir/client.cpp.o.d -o CMakeFiles/client.dir/client.cpp.o -c /home/phamgiatuan/project_02_source/client.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/phamgiatuan/Lab02-Mat_ma/project_02_source/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/client.dir/client.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/client.dir/client.cpp.o -MF CMakeFiles/client.dir/client.cpp.o.d -o CMakeFiles/client.dir/client.cpp.o -c /home/phamgiatuan/Lab02-Mat_ma/project_02_source/client.cpp
 
 CMakeFiles/client.dir/client.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/client.dir/client.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/phamgiatuan/project_02_source/client.cpp > CMakeFiles/client.dir/client.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/phamgiatuan/Lab02-Mat_ma/project_02_source/client.cpp > CMakeFiles/client.dir/client.cpp.i
 
 CMakeFiles/client.dir/client.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/client.dir/client.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/phamgiatuan/project_02_source/client.cpp -o CMakeFiles/client.dir/client.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/phamgiatuan/Lab02-Mat_ma/project_02_source/client.cpp -o CMakeFiles/client.dir/client.cpp.s
 
 CMakeFiles/client.dir/crypto_utils.cpp.o: CMakeFiles/client.dir/flags.make
-CMakeFiles/client.dir/crypto_utils.cpp.o: /home/phamgiatuan/project_02_source/crypto_utils.cpp
+CMakeFiles/client.dir/crypto_utils.cpp.o: /home/phamgiatuan/Lab02-Mat_ma/project_02_source/crypto_utils.cpp
 CMakeFiles/client.dir/crypto_utils.cpp.o: CMakeFiles/client.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/phamgiatuan/project_02_source/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/client.dir/crypto_utils.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/client.dir/crypto_utils.cpp.o -MF CMakeFiles/client.dir/crypto_utils.cpp.o.d -o CMakeFiles/client.dir/crypto_utils.cpp.o -c /home/phamgiatuan/project_02_source/crypto_utils.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/phamgiatuan/Lab02-Mat_ma/project_02_source/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/client.dir/crypto_utils.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/client.dir/crypto_utils.cpp.o -MF CMakeFiles/client.dir/crypto_utils.cpp.o.d -o CMakeFiles/client.dir/crypto_utils.cpp.o -c /home/phamgiatuan/Lab02-Mat_ma/project_02_source/crypto_utils.cpp
 
 CMakeFiles/client.dir/crypto_utils.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/client.dir/crypto_utils.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/phamgiatuan/project_02_source/crypto_utils.cpp > CMakeFiles/client.dir/crypto_utils.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/phamgiatuan/Lab02-Mat_ma/project_02_source/crypto_utils.cpp > CMakeFiles/client.dir/crypto_utils.cpp.i
 
 CMakeFiles/client.dir/crypto_utils.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/client.dir/crypto_utils.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/phamgiatuan/project_02_source/crypto_utils.cpp -o CMakeFiles/client.dir/crypto_utils.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/phamgiatuan/Lab02-Mat_ma/project_02_source/crypto_utils.cpp -o CMakeFiles/client.dir/crypto_utils.cpp.s
 
 # Object files for target client
 client_OBJECTS = \
@@ -112,7 +112,7 @@ client: /usr/lib/x86_64-linux-gnu/libssl.so
 client: /usr/lib/x86_64-linux-gnu/libcrypto.so
 client: /usr/lib/x86_64-linux-gnu/libcurl.so
 client: CMakeFiles/client.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/phamgiatuan/project_02_source/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable client"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/phamgiatuan/Lab02-Mat_ma/project_02_source/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable client"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/client.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -124,6 +124,6 @@ CMakeFiles/client.dir/clean:
 .PHONY : CMakeFiles/client.dir/clean
 
 CMakeFiles/client.dir/depend:
-	cd /home/phamgiatuan/project_02_source/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/phamgiatuan/project_02_source /home/phamgiatuan/project_02_source /home/phamgiatuan/project_02_source/build /home/phamgiatuan/project_02_source/build /home/phamgiatuan/project_02_source/build/CMakeFiles/client.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /home/phamgiatuan/Lab02-Mat_ma/project_02_source/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/phamgiatuan/Lab02-Mat_ma/project_02_source /home/phamgiatuan/Lab02-Mat_ma/project_02_source /home/phamgiatuan/Lab02-Mat_ma/project_02_source/build /home/phamgiatuan/Lab02-Mat_ma/project_02_source/build /home/phamgiatuan/Lab02-Mat_ma/project_02_source/build/CMakeFiles/client.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/client.dir/depend
 

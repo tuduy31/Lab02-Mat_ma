@@ -1,6 +1,8 @@
 #include "database.h"
 #include <iostream>
 #include <stdexcept>
+#include <ctime>      // time(), localtime(), strftime()
+#include <cstring>    // strftime
 using namespace std;
 Database::Database(const string& db_path) {
     // Mở database file (tạo mới nếu chưa có)
@@ -247,18 +249,28 @@ bool Database::deleteNote(int note_id, int user_id) { // Xoá Note
 bool Database::createShareLink(int note_id, const string& url_token,
                                const string& encrypted_key,
                                int expire_minutes, int max_access) {
+    // ✅ Tính expire_at trước, rồi bind như string
+    time_t now = time(nullptr);
+    time_t expire_time = now + (expire_minutes * 60);
+    
+    // Convert timestamp thành SQLite datetime format
+    char expire_str[30];
+    struct tm* timeinfo = localtime(&expire_time);
+    strftime(expire_str, sizeof(expire_str), "%Y-%m-%d %H:%M:%S", timeinfo);
+    
     const char* sql = "INSERT INTO share_links (note_id, url_token, encrypted_key, expire_at, max_access) "
-                     "VALUES (?, ?, ?, datetime('now', '+' || ? || ' minutes'), ?)";
+                     "VALUES (?, ?, ?, ?, ?)";
     sqlite3_stmt* stmt;
     
     if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
+        cerr << "[DB] Prepare error: " << sqlite3_errmsg(db) << "\n";
         return false;
     }
     
-    sqlite3_bind_int(stmt, 1, note_id); // Note_id muốn share
-    sqlite3_bind_text(stmt, 2, url_token.c_str(), -1, SQLITE_TRANSIENT); // Server tạo random token
-    sqlite3_bind_text(stmt, 3, encrypted_key.c_str(), -1, SQLITE_TRANSIENT); // Server mã hoá AES key
-    sqlite3_bind_int(stmt, 4, expire_minutes);
+    sqlite3_bind_int(stmt, 1, note_id);
+    sqlite3_bind_text(stmt, 2, url_token.c_str(), -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(stmt, 3, encrypted_key.c_str(), -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(stmt, 4, expire_str, -1, SQLITE_TRANSIENT);  // ✅ Bind datetime string
     sqlite3_bind_int(stmt, 5, max_access);
     
     int rc = sqlite3_step(stmt);
@@ -309,4 +321,22 @@ void Database::incrementAccessCount(const string& url_token) {
         sqlite3_step(stmt);
         sqlite3_finalize(stmt);
     }
+}
+int Database::getNoteOwner(int note_id) {
+    const char* sql = "SELECT user_id FROM notes WHERE note_id = ?";
+    sqlite3_stmt* stmt;
+    
+    if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
+        return -1;
+    }
+    
+    sqlite3_bind_int(stmt, 1, note_id);
+    
+    int user_id = -1;
+    if (sqlite3_step(stmt) == SQLITE_ROW) {
+        user_id = sqlite3_column_int(stmt, 0);
+    }
+    
+    sqlite3_finalize(stmt);
+    return user_id;
 }

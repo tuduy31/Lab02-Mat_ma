@@ -1,7 +1,7 @@
 CMakeFiles/client.dir/client.cpp.o: \
- /home/phamgiatuan/project_02_source/client.cpp \
+ /home/phamgiatuan/Lab02-Mat_ma/project_02_source/client.cpp \
  /usr/include/stdc-predef.h \
- /home/phamgiatuan/project_02_source/crypto_utils.h \
+ /home/phamgiatuan/Lab02-Mat_ma/project_02_source/crypto_utils.h \
  /usr/include/c++/13/string /usr/include/c++/13/bits/requires_hosted.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \
@@ -189,7 +189,7 @@ CMakeFiles/client.dir/client.cpp.o: \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++io.h \
  /usr/include/c++/13/bits/fstream.tcc /usr/include/c++/13/sstream \
  /usr/include/c++/13/bits/sstream.tcc \
- /home/phamgiatuan/project_02_source/include/json.hpp \
+ /home/phamgiatuan/Lab02-Mat_ma/project_02_source/include/json.hpp \
  /usr/include/c++/13/algorithm /usr/include/c++/13/bits/stl_algo.h \
  /usr/include/c++/13/bits/algorithmfwd.h \
  /usr/include/c++/13/bits/stl_heap.h \

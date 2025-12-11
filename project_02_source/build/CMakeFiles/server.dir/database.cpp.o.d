@@ -1,8 +1,8 @@
 CMakeFiles/server.dir/database.cpp.o: \
- /home/phamgiatuan/project_02_source/database.cpp \
+ /home/phamgiatuan/Lab02-Mat_ma/project_02_source/database.cpp \
  /usr/include/stdc-predef.h \
- /home/phamgiatuan/project_02_source/database.h /usr/include/sqlite3.h \
- /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h \
+ /home/phamgiatuan/Lab02-Mat_ma/project_02_source/database.h \
+ /usr/include/sqlite3.h /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h \
  /usr/include/c++/13/string /usr/include/c++/13/bits/requires_hosted.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \
@@ -157,4 +157,5 @@ CMakeFiles/server.dir/database.cpp.o: \
  /usr/include/c++/13/bits/locale_facets.tcc \
  /usr/include/c++/13/bits/basic_ios.tcc \
  /usr/include/c++/13/bits/ostream.tcc /usr/include/c++/13/istream \
- /usr/include/c++/13/bits/istream.tcc
+ /usr/include/c++/13/bits/istream.tcc /usr/include/c++/13/ctime \
+ /usr/include/c++/13/cstring /usr/include/string.h /usr/include/strings.h

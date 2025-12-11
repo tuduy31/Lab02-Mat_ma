@@ -1,7 +1,7 @@
 CMakeFiles/server.dir/server.cpp.o: \
- /home/phamgiatuan/project_02_source/server.cpp \
+ /home/phamgiatuan/Lab02-Mat_ma/project_02_source/server.cpp \
  /usr/include/stdc-predef.h \
- /home/phamgiatuan/project_02_source/include/httplib.h \
+ /home/phamgiatuan/Lab02-Mat_ma/project_02_source/include/httplib.h \
  /usr/include/arpa/inet.h /usr/include/features.h \
  /usr/include/features-time64.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
@@ -336,7 +336,7 @@ CMakeFiles/server.dir/server.cpp.o: \
  /usr/include/c++/13/unordered_set \
  /usr/include/c++/13/bits/unordered_set.h /usr/include/c++/13/utility \
  /usr/include/c++/13/bits/stl_relops.h \
- /home/phamgiatuan/project_02_source/include/json.hpp \
+ /home/phamgiatuan/Lab02-Mat_ma/project_02_source/include/json.hpp \
  /usr/include/c++/13/iterator /usr/include/c++/13/bits/stream_iterator.h \
  /usr/include/c++/13/forward_list /usr/include/c++/13/bits/forward_list.h \
  /usr/include/c++/13/bits/forward_list.tcc /usr/include/c++/13/valarray \
@@ -353,7 +353,7 @@ CMakeFiles/server.dir/server.cpp.o: \
  /usr/include/c++/13/bits/fs_path.h /usr/include/c++/13/codecvt \
  /usr/include/c++/13/bits/fs_dir.h /usr/include/c++/13/bits/fs_ops.h \
  /usr/include/c++/13/optional /usr/include/c++/13/any \
- /home/phamgiatuan/project_02_source/crypto_utils.h \
+ /home/phamgiatuan/Lab02-Mat_ma/project_02_source/crypto_utils.h \
  /usr/include/openssl/evp.h /usr/include/openssl/macros.h \
  /usr/include/x86_64-linux-gnu/openssl/opensslconf.h \
  /usr/include/x86_64-linux-gnu/openssl/configuration.h \
@@ -370,5 +370,5 @@ CMakeFiles/server.dir/server.cpp.o: \
  /usr/include/openssl/asn1.h /usr/include/openssl/asn1err.h \
  /usr/include/openssl/objectserr.h /usr/include/openssl/rand.h \
  /usr/include/openssl/randerr.h /usr/include/openssl/sha.h \
- /home/phamgiatuan/project_02_source/database.h /usr/include/sqlite3.h \
- /usr/include/c++/13/chrono
+ /home/phamgiatuan/Lab02-Mat_ma/project_02_source/database.h \
+ /usr/include/sqlite3.h /usr/include/c++/13/chrono

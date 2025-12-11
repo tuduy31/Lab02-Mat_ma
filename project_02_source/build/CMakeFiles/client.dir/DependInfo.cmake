@@ -8,8 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/phamgiatuan/project_02_source/client.cpp" "CMakeFiles/client.dir/client.cpp.o" "gcc" "CMakeFiles/client.dir/client.cpp.o.d"
-  "/home/phamgiatuan/project_02_source/crypto_utils.cpp" "CMakeFiles/client.dir/crypto_utils.cpp.o" "gcc" "CMakeFiles/client.dir/crypto_utils.cpp.o.d"
+  "/home/phamgiatuan/Lab02-Mat_ma/project_02_source/client.cpp" "CMakeFiles/client.dir/client.cpp.o" "gcc" "CMakeFiles/client.dir/client.cpp.o.d"
+  "/home/phamgiatuan/Lab02-Mat_ma/project_02_source/crypto_utils.cpp" "CMakeFiles/client.dir/crypto_utils.cpp.o" "gcc" "CMakeFiles/client.dir/crypto_utils.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

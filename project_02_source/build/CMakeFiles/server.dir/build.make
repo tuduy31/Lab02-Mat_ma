@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/phamgiatuan/project_02_source
+CMAKE_SOURCE_DIR = /home/phamgiatuan/Lab02-Mat_ma/project_02_source
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/phamgiatuan/project_02_source/build
+CMAKE_BINARY_DIR = /home/phamgiatuan/Lab02-Mat_ma/project_02_source/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/server.dir/depend.make
@@ -70,46 +70,46 @@ include CMakeFiles/server.dir/progress.make
 include CMakeFiles/server.dir/flags.make
 
 CMakeFiles/server.dir/server.cpp.o: CMakeFiles/server.dir/flags.make
-CMakeFiles/server.dir/server.cpp.o: /home/phamgiatuan/project_02_source/server.cpp
+CMakeFiles/server.dir/server.cpp.o: /home/phamgiatuan/Lab02-Mat_ma/project_02_source/server.cpp
 CMakeFiles/server.dir/server.cpp.o: CMakeFiles/server.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/phamgiatuan/project_02_source/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/server.dir/server.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/server.dir/server.cpp.o -MF CMakeFiles/server.dir/server.cpp.o.d -o CMakeFiles/server.dir/server.cpp.o -c /home/phamgiatuan/project_02_source/server.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/phamgiatuan/Lab02-Mat_ma/project_02_source/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/server.dir/server.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/server.dir/server.cpp.o -MF CMakeFiles/server.dir/server.cpp.o.d -o CMakeFiles/server.dir/server.cpp.o -c /home/phamgiatuan/Lab02-Mat_ma/project_02_source/server.cpp
 
 CMakeFiles/server.dir/server.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/server.dir/server.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/phamgiatuan/project_02_source/server.cpp > CMakeFiles/server.dir/server.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/phamgiatuan/Lab02-Mat_ma/project_02_source/server.cpp > CMakeFiles/server.dir/server.cpp.i
 
 CMakeFiles/server.dir/server.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/server.dir/server.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/phamgiatuan/project_02_source/server.cpp -o CMakeFiles/server.dir/server.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/phamgiatuan/Lab02-Mat_ma/project_02_source/server.cpp -o CMakeFiles/server.dir/server.cpp.s
 
 CMakeFiles/server.dir/database.cpp.o: CMakeFiles/server.dir/flags.make
-CMakeFiles/server.dir/database.cpp.o: /home/phamgiatuan/project_02_source/database.cpp
+CMakeFiles/server.dir/database.cpp.o: /home/phamgiatuan/Lab02-Mat_ma/project_02_source/database.cpp
 CMakeFiles/server.dir/database.cpp.o: CMakeFiles/server.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/phamgiatuan/project_02_source/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/server.dir/database.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/server.dir/database.cpp.o -MF CMakeFiles/server.dir/database.cpp.o.d -o CMakeFiles/server.dir/database.cpp.o -c /home/phamgiatuan/project_02_source/database.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/phamgiatuan/Lab02-Mat_ma/project_02_source/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/server.dir/database.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/server.dir/database.cpp.o -MF CMakeFiles/server.dir/database.cpp.o.d -o CMakeFiles/server.dir/database.cpp.o -c /home/phamgiatuan/Lab02-Mat_ma/project_02_source/database.cpp
 
 CMakeFiles/server.dir/database.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/server.dir/database.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/phamgiatuan/project_02_source/database.cpp > CMakeFiles/server.dir/database.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/phamgiatuan/Lab02-Mat_ma/project_02_source/database.cpp > CMakeFiles/server.dir/database.cpp.i
 
 CMakeFiles/server.dir/database.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/server.dir/database.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/phamgiatuan/project_02_source/database.cpp -o CMakeFiles/server.dir/database.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/phamgiatuan/Lab02-Mat_ma/project_02_source/database.cpp -o CMakeFiles/server.dir/database.cpp.s
 
 CMakeFiles/server.dir/crypto_utils.cpp.o: CMakeFiles/server.dir/flags.make
-CMakeFiles/server.dir/crypto_utils.cpp.o: /home/phamgiatuan/project_02_source/crypto_utils.cpp
+CMakeFiles/server.dir/crypto_utils.cpp.o: /home/phamgiatuan/Lab02-Mat_ma/project_02_source/crypto_utils.cpp
 CMakeFiles/server.dir/crypto_utils.cpp.o: CMakeFiles/server.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/phamgiatuan/project_02_source/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/server.dir/crypto_utils.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/server.dir/crypto_utils.cpp.o -MF CMakeFiles/server.dir/crypto_utils.cpp.o.d -o CMakeFiles/server.dir/crypto_utils.cpp.o -c /home/phamgiatuan/project_02_source/crypto_utils.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/phamgiatuan/Lab02-Mat_ma/project_02_source/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/server.dir/crypto_utils.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/server.dir/crypto_utils.cpp.o -MF CMakeFiles/server.dir/crypto_utils.cpp.o.d -o CMakeFiles/server.dir/crypto_utils.cpp.o -c /home/phamgiatuan/Lab02-Mat_ma/project_02_source/crypto_utils.cpp
 
 CMakeFiles/server.dir/crypto_utils.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/server.dir/crypto_utils.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/phamgiatuan/project_02_source/crypto_utils.cpp > CMakeFiles/server.dir/crypto_utils.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/phamgiatuan/Lab02-Mat_ma/project_02_source/crypto_utils.cpp > CMakeFiles/server.dir/crypto_utils.cpp.i
 
 CMakeFiles/server.dir/crypto_utils.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/server.dir/crypto_utils.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/phamgiatuan/project_02_source/crypto_utils.cpp -o CMakeFiles/server.dir/crypto_utils.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/phamgiatuan/Lab02-Mat_ma/project_02_source/crypto_utils.cpp -o CMakeFiles/server.dir/crypto_utils.cpp.s
 
 # Object files for target server
 server_OBJECTS = \
@@ -128,7 +128,7 @@ server: /usr/lib/x86_64-linux-gnu/libssl.so
 server: /usr/lib/x86_64-linux-gnu/libcrypto.so
 server: /usr/lib/x86_64-linux-gnu/libsqlite3.so
 server: CMakeFiles/server.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/phamgiatuan/project_02_source/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable server"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/phamgiatuan/Lab02-Mat_ma/project_02_source/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable server"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/server.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -140,6 +140,6 @@ CMakeFiles/server.dir/clean:
 .PHONY : CMakeFiles/server.dir/clean
 
 CMakeFiles/server.dir/depend:
-	cd /home/phamgiatuan/project_02_source/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/phamgiatuan/project_02_source /home/phamgiatuan/project_02_source /home/phamgiatuan/project_02_source/build /home/phamgiatuan/project_02_source/build /home/phamgiatuan/project_02_source/build/CMakeFiles/server.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /home/phamgiatuan/Lab02-Mat_ma/project_02_source/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/phamgiatuan/Lab02-Mat_ma/project_02_source /home/phamgiatuan/Lab02-Mat_ma/project_02_source /home/phamgiatuan/Lab02-Mat_ma/project_02_source/build /home/phamgiatuan/Lab02-Mat_ma/project_02_source/build /home/phamgiatuan/Lab02-Mat_ma/project_02_source/build/CMakeFiles/server.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/server.dir/depend
 

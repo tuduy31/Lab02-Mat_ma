@@ -1,0 +1,7 @@
+1.2 Giới hạn thời gian truy cập
+Phát triển tính năng chia sẻ ghi chú qua URL các chức năng cơ bản sau:
+• Tạo URL: Tạo URL duy nhất từ ID ghi chú, khóa mã hóa và thời gian hết hạn (và các metadata khác nếu cần
+thiết).
+• Xác thực URL: Kiểm tra tính hợp lệ của URL và kiểm tra các quy tắc qui định bởi metadata như thời gian hết
+hạn, yêu cầu xác thực nếu có,...
+Lưu ý: Đây là các gợi ý. Các bạn có thể tự thiết kế miễn là đạt được chức năng yêu cầu.

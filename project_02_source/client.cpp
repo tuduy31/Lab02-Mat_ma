@@ -165,11 +165,7 @@ public:
         };
         cout << "[DEBUG] Sending request with token: " << auth_token.substr(0, 20) << "...\n";
         string response = httpPost("/api/notes/create", body.dump(), auth_token);
-        cout << "[DEBUG] Response: " << response << "\n";
-    
-        
-        string response = httpPost("/api/notes/create", body.dump(), auth_token);
-        
+ 
         try {
             json resp = json::parse(response);
             if (resp.contains("note_id")) {
@@ -241,6 +237,127 @@ public:
             return false;
         }
     }
+    bool createShareLink(int note_id, int expire_minutes, int max_access) {
+    if (auth_token.empty()) {
+        cout << "✗ Not logged in!\n";
+        return false;
+    }
+    
+    string encrypted_key = "dummy_encrypted_key";
+    
+    json body = {
+        {"note_id", note_id},
+        {"encrypted_key", encrypted_key},
+        {"expire_minutes", expire_minutes},
+        {"max_access", max_access}
+    };
+    
+    string response = httpPost("/api/share/create", body.dump(), auth_token);
+    
+    try {
+        json resp = json::parse(response);
+        if (resp.contains("share_url")) {
+            cout << "✓ Share link created!\n";
+            cout << "📎 URL: " << resp["share_url"] << "\n";
+            cout << "🔑 Token: " << resp["token"] << "\n";
+            return true;
+        }
+    } catch (...) {}
+    
+    cout << "✗ Failed to create share link: " << response << "\n";
+    return false;
+    }
+    bool accessShareLink(const string& input_token) {
+    // ✅ Xử lý nếu user paste URL thay vì token
+    string share_token = input_token;
+    
+    // Nếu input chứa URL, lấy token từ cuối
+    size_t pos = share_token.rfind('/');
+    if (pos != string::npos) {
+        share_token = share_token.substr(pos + 1);
+    }
+    
+    cout << "[DEBUG] Accessing share token: " << share_token.substr(0, 20) << "...\n";
+    
+    string url = "http://localhost:8080/share/" + share_token;
+    
+    CURL* curl = curl_easy_init();
+    string response;
+    
+    if (curl) {
+        curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
+        
+        curl_easy_perform(curl);
+        curl_easy_cleanup(curl);
+    }
+    
+    cout << "[DEBUG] Response: " << response << "\n";
+    
+    try {
+        json resp = json::parse(response);
+        
+        if (resp.contains("error")) {
+            cout << "✗ Error: " << resp["error"] << "\n";
+            return false;
+        }
+        
+        cout << "✓ Share link accessed!\n";
+        cout << "📄 Filename: " << resp["filename"] << "\n";
+        cout << "🔐 Data available (encrypted)\n";
+        cout << "🗝️  Encrypted key: " << resp["encrypted_key"].dump().substr(0, 30) << "...\n";
+        return true;
+    } catch (const exception& e) {
+        cout << "✗ Failed to parse response: " << e.what() << "\n";
+        cout << "Response: " << response << "\n";
+        return false;
+    }
+}
+    bool deleteNote(int note_id) {
+    if (auth_token.empty()) {
+        cout << "✗ Not logged in!\n";
+        return false;
+    }
+        
+    CURL* curl = curl_easy_init();
+    string response;
+    
+    if (curl) {
+        string url = "http://localhost:8080/api/notes/" + to_string(note_id);
+        curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+        curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "DELETE");
+        
+        struct curl_slist* headers = nullptr;
+        headers = curl_slist_append(headers, "Content-Type: application/json");
+        string auth_header = "Authorization: Bearer " + auth_token;
+        headers = curl_slist_append(headers, auth_header.c_str());
+        curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+        
+        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
+        
+        curl_easy_perform(curl);
+        
+        curl_slist_free_all(headers);
+        curl_easy_cleanup(curl);
+    }
+    
+    try {
+        json resp = json::parse(response);
+        
+        if (resp.contains("error")) {
+            cout << "✗ Error: " << resp["error"] << "\n";
+            return false;
+        }
+        
+        cout << "✓ Note deleted successfully!\n";
+        return true;
+    } catch (...) {
+        cout << "✗ Delete failed: " << response << "\n";
+        return false;
+    }
+}
 };
 
 void printMenu() {
@@ -250,6 +367,9 @@ void printMenu() {
     cout << "3. Upload Note\n";
     cout << "4. List Notes\n";
     cout << "5. Download Note\n";
+    cout << "6. Create Share Link\n";
+    cout << "7. Access Share Link\n";
+    cout << "8. Delete Note\n";
     cout << "0. Exit\n";
     cout << "Choice: ";
 }
@@ -301,6 +421,43 @@ int main() {
                 client.downloadNote(note_id, key_file, output_file);
                 break;
             }
+            
+            case 6: {
+                int note_id, expire_minutes, max_access;
+                cout << "Note ID: "; 
+                cin >> note_id;
+                cout << "Expire minutes (e.g. 60): "; 
+                cin >> expire_minutes;
+                cout << "Max access count (-1 for unlimited): "; 
+                cin >> max_access;
+                client.createShareLink(note_id, expire_minutes, max_access);
+                break;
+            }
+
+            case 7: {
+                string share_token;
+                cout << "Share token (from URL /share/...): "; 
+                cin.ignore();
+                getline(cin, share_token);
+                client.accessShareLink(share_token);
+                break;
+            }
+
+            case 8: {
+                int note_id;
+                cout << "Note ID to delete: "; 
+                cin >> note_id;
+                char confirm;
+                cout << "Are you sure? (y/n): ";
+                cin >> confirm;
+                if (confirm == 'y' || confirm == 'Y') {
+                    client.deleteNote(note_id);
+                } else {
+                    cout << "Cancelled\n";
+                }
+                break;
+            }
+
             default:
                 cout << "Invalid choice\n";
         }

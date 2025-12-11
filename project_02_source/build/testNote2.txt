@@ -1,0 +1,18 @@
+Giới thiệu bài tập
+Bài tập này yêu cầu sinh viên cần cách kết hợp các kỹ thuật sau nhằm tạo ra nền tảng đảm bảo việc chia sẻ ghi chú an
+toàn và riêng tư:
+Client-side encryption Client-side encryption (mã hóa phía máy khách) đảm bảo rằng dữ liệu nhạy cảm được mã hóa
+trước khi được gửi ra khỏi máy của người dùng, bảo vệ quyền riêng tư và tính toàn vẹn dữ liệu. Phương pháp này
+ngăn chặn máy chủ truy cập vào dữ liệu gốc, giảm nguy cơ từ các cuộc tấn công từ máy chủ độc hại/bị điều khiển.
+AES là thuật toán mã hóa đối xứng được tin dùng rộng rãi để mã hóa dữ liệu nhỏ một cách hiệu quả. Tuy nhiên,
+để vừa đảm bảo dữ liệu được mã hóa đúng đắn, vừa đảm bảo tính toàn vẹn của dữ liệu, các bạn sinh viên cần tìm
+hiểu các mode của AES và chọn mode phù hợp. Mỗi ghi chú nên được mã hóa bằng một khóa riêng, nhằm củng cố
+tính bảo mật.
+User authentication User authentication (xác thực người dùng) cho phép chỉ những người dùng hợp lệ truy cập hệ
+thống. Mật khẩu nên được lưu trữ trên máy chủ một cách an toàn bằng cách hashing và các kỹ thuật hỗ trợ như
+salting/peppering. JWT giúp duy trì các phiên đăng nhập an toàn mà không làm giảm trải nghiệm người dùng. Các
+cơ chế này cân bằng giữa tính thân thiện với người dùng và tính bảo mật.
+End-to-end encryption End-to-end encryption (mã hóa đầu-cuối) đóng vai trò đảm bảo tính bảo mật khi chia sẻ dữ
+liệu giữa các thiết bị hay giữa các người dùng. Tính năng này bao gồm việc sử dụng trao đổi khóa Diffie-Hellman
+để tạo ra một khóa phiên duy nhất nhằm mã hóa và giải mã các ghi chú được chia sẻ, khóa này sẽ bị hủy sau khi
+sử dụng.

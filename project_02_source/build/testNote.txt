@@ -1,0 +1,11 @@
+    Các chức năng cơ bản cần được triển khai:
+1. Xác thực người dùng: Triển khai đăng ký và đăng nhập. Lưu trữ mật khẩu và quản lý phiên làm việc bằng token
+bảo mật.
+2. Mã hóa/giải ghi chú: Mã hóa ghi chú ở client bằng AES trước khi tải lên server, giải mã ghi chú cá nhân hoặc
+ghi chú được chia sẻ.
+3. Giao diện điều khiển chương trình: Cho phép người dùng liệt kê ghi chú, hủy chia sẻ ghi chú hoặc xóa các ghi
+chú.
+4. Giới hạn thời gian truy cập: Tạo và xác thực URL tạm thời để truy cập ghi chú. Đảm bảo các ghi chú không
+thể truy cập sau khi hết hạn.
+Lưu ý: Không cần cài đặt nền tảng tạo ghi chú, ghi chú ở đây có thể là một tập tin bất kỳ như .docx,.pdf,.txt,...
+Bài tập này tập trung vào các chức năng mã hóa, xác thực và chia sẻ dữ liệu, không yêu cầu cụ thể GUI hay CLI.
